@@ -1,4 +1,4 @@
-# 🏦 BANK LOAN REPORT | SUMMARY DASHBOARD
+# 🏦 BANK LOAN MANAGEMENT DASHBOARD
 
 ![Dashboard Screenshot](bank.png)
 
@@ -79,7 +79,6 @@ COUNT(Loans[LoanID]),
 // Recovery Rate
 Recovery Rate = DIVIDE([Total Amount Received], [Total Funded Amount], 0)
 
-text
 
 ## 🛠️ Technical Implementation
 
@@ -96,26 +95,32 @@ text
 | ✅ **Tooltips** | Hover-based detailed metrics |
 
 ## 📁 Data Model
-┌─────────────────┐ ┌─────────────────┐
-│ Loans │─────│ Date │
-│ (Fact Table) │ │ (Dimension) │
-│ - Loan ID │ │ - Date │
-│ - Amount │ │ - Month │
-│ - Status │ │ - Year │
-│ - Interest Rate │ └─────────────────┘
-│ - DTI │ │
-│ - Grade │ │
-└─────────────────┘ │
-│ │
-│ ┌─────▼─────┐
-│ │ Filters │
-│ └───────────┘
-┌────▼────┐
-│ Borrower │
-│(Dim) │
-└─────────┘
 
-text
+┌─────────────────┐         ┌─────────────────┐
+│     Loans       │         │      Date       │
+│  (Fact Table)   │         │  (Dimension)    │
+├─────────────────┤         ├─────────────────┤
+│ Loan ID         │────────►│ Date            │
+│ Amount          │         │ Month           │
+│ Status          │         │ Year            │
+│ Interest Rate   │         └─────────────────┘
+│ DTI             │
+│ Grade           │
+│ Borrower ID     │────────┐
+└─────────────────┘        │
+         │                 │
+         │                 │
+         ▼                 ▼
+┌─────────────────┐  ┌─────────────────┐
+│    Borrower     │  │     Filters     │
+│  (Dimension)    │  │   (Supporting)  │
+├─────────────────┤  ├─────────────────┤
+│ Borrower ID     │  │ Region          │
+│ Name            │  │ Loan Grade      │
+│ Credit Score    │  │ Date Range      │
+│ Employment Type │  └─────────────────┘
+└─────────────────┘
+
 
 ## 📁 Dataset Information
 
@@ -146,14 +151,7 @@ The dashboard uses bank loan data containing:
 | **Overview** | Detailed loan status breakdown with visualizations |
 | **Details** | Granular loan-level data with drill-through capabilities |
 
-## 🔧 Setup Instructions
-Clone this repository
-git clone https://github.com/yourusername/bank-loan-dashboard.git
 
-Navigate to project folder
-cd bank-loan-dashboard
-
-text
 
 ### File Structure:
 bank-loan-dashboard/
@@ -162,7 +160,6 @@ bank-loan-dashboard/
 ├── bank.png # Dashboard screenshot
 └── data/ # Source data files (if included)
 
-text
 
 ### RLS Configuration:
 1. Open Power BI Desktop
@@ -171,10 +168,6 @@ text
 4. Apply DAX filters as needed
 5. Test with "View As" feature
 
-## 📬 Connect With Me
-
-- **LinkedIn:** [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- **GitHub:** [@yourusername](https://github.com/yourusername)
 
 ## 📄 License
 
@@ -202,5 +195,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ✅ Implemented Row-Level Security for data governance  
 
 ---
-
-**⭐ If you find this project useful for understanding loan portfolio management, please consider giving it a star!**
