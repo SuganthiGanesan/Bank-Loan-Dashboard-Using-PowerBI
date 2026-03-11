@@ -58,27 +58,125 @@ This repository contains a comprehensive **Bank Loan Management Dashboard** buil
 - **Cross-Filtering:** Maintains context when navigating from summary to detail
 - *Benefit: Enables root-cause analysis without cluttering the main dashboard*
 
-## 📊 Advanced DAX Measures
+# 🏦 BANK LOAN MANAGEMENT DASHBOARD
+
+![Power BI](https://img.shields.io/badge/PowerBI-Dashboard-yellow)
+![DAX](https://img.shields.io/badge/DAX-Analytics-blue)
+![Business Intelligence](https://img.shields.io/badge/BI-Reporting-orange)
+![Data Visualization](https://img.shields.io/badge/DataViz-Insights-green)
+
+![Dashboard Screenshot](bank.png)
+
+This repository contains a comprehensive **Bank Loan Management Dashboard** built in **Power BI** to analyze and monitor loan portfolio performance. The dashboard provides critical insights into loan applications, funded amounts, repayments, and risk metrics to support **data-driven lending decisions**.
+
+---
+
+# 📊 KEY PERFORMANCE INDICATORS (KPIs)
+
+## Portfolio Summary
+
+| Metric | Total | MTD | MoM Change |
+|------|------|------|------|
+| **Total Loan Applications** | 38.6K | 4.3K | ▲ 6.9% |
+| **Total Funded Amount** | $435.8M | $54.0M | ▲ 13.0% |
+| **Total Amount Received** | $473.1M | $58.1M | ▲ 15.8% |
+| **Avg Interest Rate** | 12.0% | 3.5% | ▲ 13.7% |
+| **Avg DTI** | 13.3% | - | - |
+
+---
+
+## Loan Quality Overview
+
+| Category | Applications | Funded Amount | Received Amount |
+|------|------|------|------|
+| **GOOD LOAN ISSUED** | 33K (86.2%) | $370.2M | $435.8M |
+| **BAD LOAN ISSUED** | 5K (13.8%) | $65.5M | $37.3M |
+
+---
+
+# 📈 LOAN STATUS BREAKDOWN
+
+| Loan Status | Total Loan Applications | Total Funded Amount | Total Amount Received | MTD Funded Amount | MTD Amount Received | Avg Interest | Avg DTI |
+|------|------|------|------|------|------|------|------|
+| **Fully Paid** | 32,145 | $351,358,350 | $411,586,256 | $41,302,025 | $47,815,851 | 11.64% | 13.17% |
+| **Charged Off** | 5,333 | $65,532,225 | $37,284,763 | $8,732,775 | $5,324,211 | 13.88% | 14.00% |
+| **Current** | 1,098 | $18,866,500 | $24,199,914 | $3,946,625 | $4,934,318 | 15.10% | 14.72% |
+| **GRAND TOTAL** | **38,576** | **$435,757,075** | **$473,070,933** | **$53,981,425** | **$58,074,380** | **12.05%** | **13.33%** |
+
+---
+
+# 🔍 KEY INSIGHTS
+
+- Strong repayment performance: **$473.1M received vs $435.8M funded**
+- **Recovery rate: 108.5%**
+- **86.2% of loans are good loans** (Fully Paid + Current)
+- **13.8% loans are charged off**
+- Charged-off loans have **higher interest rates and DTI**
+- Month-to-date growth:
+  - Applications: **+6.9%**
+  - Funding: **+13.0%**
+  - Receipts: **+15.8%**
+
+---
+
+# ⚡ Advanced Power BI Features Implemented
+
+## 🔐 Row-Level Security (RLS)
+
+- Dynamic data access based on user roles
+- Restricts loan data visibility by user type
+- Ensures sensitive financial data security
+
+**Benefit:** Only authorized users can view relevant loan data.
+
+---
+
+## 📑 Page Navigation & Bookmarks
+
+- Multi-page dashboard navigation
+- Interactive buttons for page transitions
+- Bookmarks used for saving filter states
+
+**Benefit:** Improves dashboard usability and guided analytics.
+
+---
+
+## 🔍 Drill-Through Functionality
+
+- Right-click to view detailed loan-level data
+- Maintains context from summary visuals
+- Enables deeper loan performance analysis
+
+---
+
+# 📊 Advanced DAX Measures
+
+```dax
 // Time Intelligence Measures
-MTD Applications = TOTALMTD(COUNT(Loans[LoanID]), 'Date'[Date])
+MTD Applications =
+TOTALMTD(COUNT(Loans[LoanID]), 'Date'[Date])
 
 MoM Change % =
 VAR CurrentMonth = [MTD Applications]
-VAR PreviousMonth = CALCULATE([MTD Applications], DATEADD('Date'[Date], -1, MONTH))
+VAR PreviousMonth =
+    CALCULATE([MTD Applications], DATEADD('Date'[Date], -1, MONTH))
 RETURN
 DIVIDE(CurrentMonth - PreviousMonth, PreviousMonth, 0)
 
 // Loan Quality Measures
 Good Loan % =
 DIVIDE(
-CALCULATE(COUNT(Loans[LoanID]), Loans[Status] IN {"Fully Paid", "Current"}),
-COUNT(Loans[LoanID]),
+    CALCULATE(
+        COUNT(Loans[LoanID]),
+        Loans[Status] IN {"Fully Paid", "Current"}
+    ),
+    COUNT(Loans[LoanID]),
 0
 )
 
 // Recovery Rate
-Recovery Rate = DIVIDE([Total Amount Received], [Total Funded Amount], 0)
-
+Recovery Rate =
+DIVIDE([Total Amount Received], [Total Funded Amount], 0)
 
 ## 🛠️ Technical Implementation
 
@@ -94,7 +192,6 @@ Recovery Rate = DIVIDE([Total Amount Received], [Total Funded Amount], 0)
 | ✅ **Conditional Formatting** | Color-coded loan status and trends |
 | ✅ **Tooltips** | Hover-based detailed metrics |
 
-## 📁 Data Model
 ## 📁 Data Model
 
 **Loans**
