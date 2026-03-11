@@ -95,33 +95,37 @@ Recovery Rate = DIVIDE([Total Amount Received], [Total Funded Amount], 0)
 | ✅ **Tooltips** | Hover-based detailed metrics |
 
 ## 📁 Data Model
+## 📁 Data Model
 
-┌─────────────────┐         ┌─────────────────┐
-│     Loans       │         │      Date       │
-│  (Fact Table)   │         │  (Dimension)    │
-├─────────────────┤         ├─────────────────┤
-│ Loan ID         │────────►│ Date            │
-│ Amount          │         │ Month           │
-│ Status          │         │ Year            │
-│ Interest Rate   │         └─────────────────┘
-│ DTI             │
-│ Grade           │
-│ Borrower ID     │────────┐
-└─────────────────┘        │
-         │                 │
-         │                 │
-         ▼                 ▼
-┌─────────────────┐  ┌─────────────────┐
-│    Borrower     │  │     Filters     │
-│  (Dimension)    │  │   (Supporting)  │
-├─────────────────┤  ├─────────────────┤
-│ Borrower ID     │  │ Region          │
-│ Name            │  │ Loan Grade      │
-│ Credit Score    │  │ Date Range      │
-│ Employment Type │  └─────────────────┘
-└─────────────────┘
+**Loans**
+(Fact Table)
+- Loan ID
+- Amount
+- Status
+- Interest Rate
+- DTI
+- Grade
+- Borrower ID
 
+**Date**
+(Dimension)
+- Date
+- Month
+- Year
 
+**Borrower**
+(Dimension)
+- Borrower ID
+- Name
+- Credit Score
+- Employment Type
+
+**Filters**
+(Supporting)
+- Region
+- Loan Grade
+- Date Range
+- 
 ## 📁 Dataset Information
 
 The dashboard uses bank loan data containing:
